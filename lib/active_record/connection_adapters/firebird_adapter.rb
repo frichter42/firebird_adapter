@@ -18,17 +18,6 @@ class ActiveRecord::ConnectionAdapters::FirebirdAdapter < ActiveRecord::Connecti
   include ActiveRecord::ConnectionAdapters::Firebird::SchemaStatements
   include ActiveRecord::ConnectionAdapters::Firebird::Quoting
 
-  def initialize(connection)
-    @connection = ::Fb::Database.connect(
-      database: database_path(connection),
-      username: connection[:username],
-      password: connection[:password],
-      charset: connection[:encoding],
-      downcase_names: true
-    )
-    super(connection)
-  end
-
   def arel_visitor
     @arel_visitor ||= Arel::Visitors::Firebird.new(self)
   end
